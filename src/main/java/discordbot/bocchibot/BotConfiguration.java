@@ -3,6 +3,10 @@ package discordbot.bocchibot;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
+import discord4j.core.object.presence.ClientActivity;
+import discord4j.core.object.presence.ClientPresence;
+import discord4j.discordjson.json.ApplicationCommandRequest;
+import discord4j.rest.RestClient;
 import discordbot.bocchibot.event.EventListener;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +24,20 @@ public class BotConfiguration {
     public <T extends Event>GatewayDiscordClient gatewayDiscordClient(List<EventListener<T>> eventListeners){
         GatewayDiscordClient client = DiscordClientBuilder.create(token)
                 .build()
+                .gateway()
+                .setInitialPresence(ignore -> ClientPresence.online(ClientActivity.playing("Guitar")))
                 .login()
                 .block();
+
+        long applicationId = client.getRestClient().getApplicationId().block();
+        ApplicationCommandRequest greetCmdRequest = ApplicationCommandRequest.builder()
+                .name("greetbocchi")
+                .description("She will happy if you greet her")
+                .build();
+
+        client.getRestClient().getApplicationService()
+                .createGlobalApplicationCommand(applicationId, greetCmdRequest)
+                .subscribe();
 
         assert client != null;
         for(final EventListener<T> listener:eventListeners){
@@ -31,5 +47,9 @@ public class BotConfiguration {
                     .subscribe();
         }
         return client;
+    }
+    @Bean
+    public RestClient discordRestClient(GatewayDiscordClient client) {
+        return client.getRestClient();
     }
 }

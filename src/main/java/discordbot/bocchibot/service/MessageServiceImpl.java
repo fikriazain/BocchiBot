@@ -1,20 +1,18 @@
 package discordbot.bocchibot.service;
 
-import discord4j.core.object.entity.Message;
-import discord4j.core.object.entity.User;
-import discord4j.core.object.entity.channel.MessageChannel;
+import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Service
 public class MessageServiceImpl implements MessageService{
     private static final String PREFIX_CHARACTER = "!";
 
     @Override
-    public void response(Message message) {
-        String request = message.getContent();
-        final MessageChannel channel = message.getChannel().block();
-        if (message.getAuthor().map(user -> !user.isBot()).orElse(false) && request.startsWith(PREFIX_CHARACTER)) {
-            channel.typeUntil(channel.createMessage("BOCCHI DESU!")).blockLast();
+    public Mono<Void> response(ChatInputInteractionEvent message) {
+        if(message.getCommandName().equals("greetbocchi")){
+            return message.reply("BOCCHI DESU!");
         }
+        return Mono.empty();
     }
 }

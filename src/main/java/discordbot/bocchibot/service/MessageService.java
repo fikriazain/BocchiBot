@@ -1,7 +1,8 @@
 package discordbot.bocchibot.service;
 
-import discord4j.core.object.entity.Message;
+import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
+import reactor.core.publisher.Mono;
 
 public interface MessageService {
-    void response(Message message);
+    Mono<Void> response(ChatInputInteractionEvent message);
 }

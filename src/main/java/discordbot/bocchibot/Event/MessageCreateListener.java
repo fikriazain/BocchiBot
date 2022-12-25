@@ -1,19 +1,20 @@
 package discordbot.bocchibot.event;
 
+import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
-public class MessageCreateListener extends MessageListener implements EventListener<MessageCreateEvent> {
+public class MessageCreateListener extends MessageListener implements EventListener<ChatInputInteractionEvent> {
 
     @Override
-    public Class<MessageCreateEvent> getEventType(){
-        return MessageCreateEvent.class;
+    public Class<ChatInputInteractionEvent> getEventType(){
+        return ChatInputInteractionEvent.class;
     }
 
     @Override
-    public Mono<Void> execute(MessageCreateEvent event){
-        return processMessage(event.getMessage());
+    public Mono<Void> execute(ChatInputInteractionEvent event){
+        return processMessage(event);
     }
 }
