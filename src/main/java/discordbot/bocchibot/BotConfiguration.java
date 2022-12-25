@@ -29,16 +29,6 @@ public class BotConfiguration {
                 .login()
                 .block();
 
-        long applicationId = client.getRestClient().getApplicationId().block();
-        ApplicationCommandRequest greetCmdRequest = ApplicationCommandRequest.builder()
-                .name("greetbocchi")
-                .description("She will happy if you greet her")
-                .build();
-
-        client.getRestClient().getApplicationService()
-                .createGlobalApplicationCommand(applicationId, greetCmdRequest)
-                .subscribe();
-
         assert client != null;
         for(final EventListener<T> listener:eventListeners){
             client.on(listener.getEventType())
