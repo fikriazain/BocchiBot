@@ -21,7 +21,7 @@ public class BotConfiguration {
     private String token;
 
     @Bean
-    public <T extends Event>GatewayDiscordClient gatewayDiscordClient(List<EventListener<T>> eventListeners){
+    public <T extends Event>GatewayDiscordClient gatewayDiscordClient(){
         GatewayDiscordClient client = DiscordClientBuilder.create(token)
                 .build()
                 .gateway()
@@ -29,15 +29,9 @@ public class BotConfiguration {
                 .login()
                 .block();
 
-        assert client != null;
-        for(final EventListener<T> listener:eventListeners){
-            client.on(listener.getEventType())
-                    .flatMap(listener::execute)
-                    .onErrorResume(listener::handleError)
-                    .subscribe();
-        }
         return client;
     }
+
     @Bean
     public RestClient discordRestClient(GatewayDiscordClient client) {
         return client.getRestClient();

@@ -1,4 +1,4 @@
-package discordbot.bocchibot.service;
+package discordbot.bocchibot.commands;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

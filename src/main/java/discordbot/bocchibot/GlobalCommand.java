@@ -1,5 +1,7 @@
 package discordbot.bocchibot;
 
+import discord4j.core.object.command.ApplicationCommandOption;
+import discord4j.discordjson.json.ApplicationCommandOptionData;
 import discord4j.discordjson.json.ApplicationCommandRequest;
 import discord4j.rest.RestClient;
 import org.springframework.boot.ApplicationArguments;
@@ -21,13 +23,28 @@ public class GlobalCommand implements ApplicationRunner {
         long applicationId = client.getApplicationId().block();
         ApplicationCommandRequest greetCmdRequest = ApplicationCommandRequest.builder()
                 .name("greetbocchi")
-                .description("She will happy if you greet her")
+                .description("She'll be happy if you greet her")
+                .dmPermission(true)
                 .build();
         client.getApplicationService()
                 .createGlobalApplicationCommand(applicationId, greetCmdRequest)
                 .subscribe();
 
-//      <---------- ADD NEW COMMENT HERE USING THIS COMMAND ---------->
+        ApplicationCommandRequest command2 = ApplicationCommandRequest.builder()
+                .name("anonymous-message")
+                .description("Send Anonymous Message")
+                .addOption(ApplicationCommandOptionData.builder()
+                        .name("message")
+                        .description("Put your message here")
+                        .type(ApplicationCommandOption.Type.STRING.getValue())
+                        .required(true)
+                        .build())
+                .build();
+        client.getApplicationService()
+                .createGlobalApplicationCommand(applicationId, command2)
+                .subscribe();
+
+//      <---------- ADD NEW COMMAND HERE USING THIS COMMENT ---------->
 //        ApplicationCommandRequest command1 = ApplicationCommandRequest.builder()
 //                .name(NAME_COMMAND)
 //                .description("DESCRIPTION COMMAND")
