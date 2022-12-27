@@ -28,6 +28,7 @@ public class MessageCreateListener implements EventListener<ChatInputInteraction
 
     @Override
     public Mono<Void> execute(ChatInputInteractionEvent eventMessage){
+        System.out.println(commands);
         return Flux.fromIterable(commands)
                 .filter(command -> command.getName().equals(eventMessage.getCommandName()))
                 .next()

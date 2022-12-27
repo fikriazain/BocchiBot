@@ -3,14 +3,11 @@ package discordbot.bocchibot.commands;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
 import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
-import discord4j.core.object.entity.channel.MessageChannel;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-import java.util.Optional;
-
 @Component
-public class AnonymousMessage implements MessageCommand {
+public class AnonymousMessageCommand implements MessageCommand {
 
     @Override
     public String getName() {

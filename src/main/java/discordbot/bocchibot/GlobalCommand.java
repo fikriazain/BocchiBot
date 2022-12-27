@@ -44,6 +44,14 @@ public class GlobalCommand implements ApplicationRunner {
                 .createGlobalApplicationCommand(applicationId, command2)
                 .subscribe();
 
+        ApplicationCommandRequest command3 = ApplicationCommandRequest.builder()
+                .name("register")
+                .description("Bocchi doesn't know you yet, please register yourself")
+                .build();
+        client.getApplicationService()
+                .createGlobalApplicationCommand(applicationId, command3)
+                .subscribe();
+
 //      <---------- ADD NEW COMMAND HERE USING THIS COMMENT ---------->
 //        ApplicationCommandRequest command1 = ApplicationCommandRequest.builder()
 //                .name(NAME_COMMAND)
@@ -52,5 +60,11 @@ public class GlobalCommand implements ApplicationRunner {
 //        client.getApplicationService()
 //                .createGlobalApplicationCommand(applicationId, command1)
 //                .subscribe();
+
+//        <---------- DELETE COMMAND USING THIS COMMENT ---------->
+//        client.getApplicationService()
+//                .deleteGlobalApplicationCommand(applicationId, commandId)
+//                .subscribe();
+
     }
 }

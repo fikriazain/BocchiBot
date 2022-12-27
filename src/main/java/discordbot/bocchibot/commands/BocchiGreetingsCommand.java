@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
-public class MessageServiceImpl implements MessageCommand {
+public class BocchiGreetingsCommand implements MessageCommand {
     @Override
     public String getName() {
         return "greetbocchi";
