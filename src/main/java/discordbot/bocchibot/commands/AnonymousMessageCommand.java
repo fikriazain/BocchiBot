@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
-public class AnonymousMessageCommand implements MessageCommand {
+public class AnonymousMessageCommand extends MessageCommandAbstract implements MessageCommand {
 
     @Override
     public String getName() {
@@ -16,13 +16,18 @@ public class AnonymousMessageCommand implements MessageCommand {
 
     @Override
     public Mono<Void> response(ChatInputInteractionEvent message) {
+        if(isRegisteredUser(message)){
+            String message1 = message.getOption("message")
+                    .flatMap(ApplicationCommandInteractionOption::getValue)
+                    .map(ApplicationCommandInteractionOptionValue::asString)
+                    .orElseThrow();
 
-        String message1 = message.getOption("message")
-                .flatMap(ApplicationCommandInteractionOption::getValue)
-                .map(ApplicationCommandInteractionOptionValue::asString)
-                .orElseThrow();
-
-        message.getInteraction().getChannel().flatMap(messageChannel -> messageChannel.createMessage(String.format("%s",message1))).subscribe();
-        return message.reply("I.. i... already sent it...").withEphemeral(true);
+            message.getInteraction().getChannel().flatMap(messageChannel -> messageChannel.createMessage(String.format("%s",message1))).subscribe();
+            return message.reply("I.. i... already sent it...").withEphemeral(true);
+        }
+        else {
+            message.getInteraction().getChannel().flatMap(messageChannel -> messageChannel.createMessage("I don't know you ... please `/register`")).subscribe();
+            return message.reply("https://tenor.com/view/bocchi-the-rock-bocchi-part-time-jobs-gif-27052191");
+        }
     }
 }
