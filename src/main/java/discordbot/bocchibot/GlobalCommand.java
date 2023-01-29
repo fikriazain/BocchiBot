@@ -52,6 +52,14 @@ public class GlobalCommand implements ApplicationRunner {
                 .createGlobalApplicationCommand(applicationId, command3)
                 .subscribe();
 
+        ApplicationCommandRequest command4 = ApplicationCommandRequest.builder()
+                .name("modal")
+                .description("Test Modal")
+                .build();
+        client.getApplicationService()
+                .createGlobalApplicationCommand(applicationId, command4)
+                .subscribe();
+
 //      <---------- ADD NEW COMMAND HERE USING THIS COMMENT ---------->
 //        ApplicationCommandRequest command1 = ApplicationCommandRequest.builder()
 //                .name(NAME_COMMAND)

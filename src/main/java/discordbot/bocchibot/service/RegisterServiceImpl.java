@@ -25,4 +25,10 @@ public class RegisterServiceImpl implements RegisterService {
         }
         return false;
     }
+
+    public void meh(){
+        //Make a function to print "something" based on certain time in real world
+
+
+    }
 }

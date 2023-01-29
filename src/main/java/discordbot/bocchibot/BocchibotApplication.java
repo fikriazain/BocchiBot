@@ -11,5 +11,4 @@ public class BocchiBotApplication {
     public static void main(String[] args) {
         SpringApplication.run(BocchiBotApplication.class, args);
     }
-
 }
