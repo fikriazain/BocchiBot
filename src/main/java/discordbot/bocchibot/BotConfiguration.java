@@ -34,7 +34,6 @@ public class BotConfiguration {
                 .setInitialPresence(ignore -> ClientPresence.online(ClientActivity.playing("Guitar")))
                 .login()
                 .block();
-
         return client;
     }
 

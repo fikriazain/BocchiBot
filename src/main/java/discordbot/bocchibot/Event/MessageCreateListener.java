@@ -4,12 +4,10 @@ import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discordbot.bocchibot.commands.MessageCommand;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Collection;
-import java.util.List;
 
 @Component
 public class MessageCreateListener implements EventListener<ChatInputInteractionEvent> {
@@ -28,7 +26,6 @@ public class MessageCreateListener implements EventListener<ChatInputInteraction
 
     @Override
     public Mono<Void> execute(ChatInputInteractionEvent eventMessage){
-        System.out.println(commands);
         return Flux.fromIterable(commands)
                 .filter(command -> command.getName().equals(eventMessage.getCommandName()))
                 .next()
