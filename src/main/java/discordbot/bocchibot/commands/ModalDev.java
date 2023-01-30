@@ -29,7 +29,7 @@ public class ModalDev extends MessageCommandAbstract implements MessageCommand {
     @Override
     public Mono<Void> response(ChatInputInteractionEvent message) {
         InteractionPresentModalSpec.Builder modal = InteractionPresentModalSpec.builder();
-        modal.title("Test MEH");
+        modal.title("Data Submission");
         modal.customId(MODAL_CUSTOM_ID);
         modal.addComponent(ActionRow.of(TextInput.small(NAME_CUSTOM_ID, "Name", 0, 400).required(true)));
         modal.addComponent(ActionRow.of(TextInput.small(NPM_CUSTOM_ID, "NPM", 10, 10).required(true)));

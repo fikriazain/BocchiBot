@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import discord4j.core.event.domain.interaction.ModalSubmitInteractionEvent;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Collection;
 
 @Component
@@ -28,6 +31,15 @@ public class ModalSubmitListener implements EventListener<ModalSubmitInteraction
         return Flux.fromIterable(modal)
                 .filter(modal -> modal.getId().equals(event.getCustomId()))
                 .next()
-                .flatMap(modal -> modal.response(event));
+                .flatMap(modal -> {
+                    try {
+                        return modal.response(event);
+                    } catch (GeneralSecurityException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                });
     }
 }

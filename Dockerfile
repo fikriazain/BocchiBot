@@ -1,4 +1,5 @@
 FROM openjdk:21-jdk
-ADD build/libs/*.jar app.jar
+ADD build/libs/*.jar dockerapp.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar", "dockerapp.jar"]
+
