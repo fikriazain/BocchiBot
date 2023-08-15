@@ -36,7 +36,7 @@ public class GoogleSheetsServiceImpl implements GoogleSheetsService {
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File("tokens")))
                 .setAccessType("offline")
                 .build();
-        Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+        Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver.Builder().setPort(8888).build()).authorize("user");
         return credential;
     }
 
@@ -61,11 +61,11 @@ public class GoogleSheetsServiceImpl implements GoogleSheetsService {
     }
 
     @Override
-    public void appendData(String name, String npm) throws GeneralSecurityException, IOException {
+    public void appendData(String name, String npm, String belong) throws GeneralSecurityException, IOException {
         sheetsService = getSheetsService();
         ValueRange appendBody = new ValueRange()
                 .setValues(Arrays.asList(
-                        Arrays.asList(name, npm)
+                        Arrays.asList(name, npm, belong)
                 ));
         sheetsService.spreadsheets().values()
                 .append(SPREADSHEET_ID, "Sheet1", appendBody)

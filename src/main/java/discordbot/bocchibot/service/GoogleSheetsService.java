@@ -21,5 +21,5 @@ public interface GoogleSheetsService {
     Credential authorize() throws GeneralSecurityException, IOException;
     Sheets getSheetsService() throws GeneralSecurityException, IOException;
     void getValues() throws GeneralSecurityException, IOException;
-    void appendData (String name, String npm) throws GeneralSecurityException, IOException;
+    void appendData (String name, String npm, String belong) throws GeneralSecurityException, IOException;
 }

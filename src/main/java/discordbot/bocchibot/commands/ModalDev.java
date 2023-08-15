@@ -15,6 +15,7 @@ public class ModalDev extends MessageCommandAbstract implements MessageCommand {
     static final String MODAL_CUSTOM_ID = "ModelForm";
     static final String NAME_CUSTOM_ID = "nameId";
     static final String NPM_CUSTOM_ID = "npmId";
+    static final String CLASS_CUSTOM_ID = "classId";
     private final GatewayDiscordClient client;
 
     public ModalDev(GatewayDiscordClient client) {
@@ -33,6 +34,7 @@ public class ModalDev extends MessageCommandAbstract implements MessageCommand {
         modal.customId(MODAL_CUSTOM_ID);
         modal.addComponent(ActionRow.of(TextInput.small(NAME_CUSTOM_ID, "Name", 0, 400).required(true)));
         modal.addComponent(ActionRow.of(TextInput.small(NPM_CUSTOM_ID, "NPM", 10, 10).required(true)));
+        modal.addComponent(ActionRow.of(TextInput.small(CLASS_CUSTOM_ID, "Kelas (e.g A or B)", 1, 4).required(true)));
         message.presentModal(modal.build()).subscribe();
         return message.reply("");
     }

@@ -6,6 +6,8 @@ import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.io.InputStream;
+
 @Component
 public class AnonymousMessageCommand extends MessageCommandAbstract implements MessageCommand {
 
@@ -21,9 +23,16 @@ public class AnonymousMessageCommand extends MessageCommandAbstract implements M
                     .flatMap(ApplicationCommandInteractionOption::getValue)
                     .map(ApplicationCommandInteractionOptionValue::asString)
                     .orElseThrow();
+            if(message1.equals("meme")){
+                InputStream inputStream = getClass().getClassLoader().getResourceAsStream("ramadhan2.png");
+                message.getInteraction().getChannel().flatMap(messageChannel -> messageChannel.createMessage(message2 -> message2.addFile("ramadhan2.png", inputStream))).subscribe();
+            }
+            else{
+                message.getInteraction().getChannel().flatMap(messageChannel -> messageChannel.createMessage(String.format("%s",message1))).subscribe();
+            }
+            //Send video file attachment to a channel
 
-            message.getInteraction().getChannel().flatMap(messageChannel -> messageChannel.createMessage(String.format("%s",message1))).subscribe();
-            return message.reply("I.. i... already sent it...").withEphemeral(true);
+            return message.reply("I.. i... already send it...").withEphemeral(true);
         }
         else {
             message.getInteraction().getChannel().flatMap(messageChannel -> messageChannel.createMessage("I don't know you ... please `/register`")).subscribe();

@@ -20,6 +20,16 @@ repositories {
     mavenCentral()   //add
 }
 
+jib{
+    from {
+        image = 'openjdk:21-jdk'
+    }
+    to {
+        image = 'register.hub.docker.com/azyain/bocchibot'
+        tags = ['latest']
+    }
+}
+
 docker{
     name "bocchibot"
     dockerfile file('Dockerfile')

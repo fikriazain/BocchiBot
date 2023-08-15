@@ -32,7 +32,7 @@ public class ModalSubmit implements ModalInterface{
         for (TextInput component : request.getComponents(TextInput.class)) {
             values.add(component.getValue().get());
         }
-        googleSheetsService.appendData(values.get(0), values.get(1));
+        googleSheetsService.appendData(values.get(0), values.get(1), values.get(2));
         return request.reply("Your data has been submitted");
     }
 }
